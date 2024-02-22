@@ -1,0 +1,62 @@
+version: '3.9'
+
+services:
+  postgres:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: ${POSTGRESQL_DB}
+      POSTGRES_USER: ${POSTGRESQL_USER}
+      POSTGRES_PASSWORD: ${POSTGRESQL_PASS}
+    volumes:
+      - /private/var/lib/postgresql:/var/lib/postgresql
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:${KEYCLOAK_VERSION}
+    environment:
+      KEYCLOAK_ADMIN: ${KEYCLOAK_ADMIN_USER}
+      KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASS}
+      KC_DB: postgres
+      KC_DB_URL: jdbc:postgresql://postgres/${POSTGRESQL_DB}
+      KC_DB_USERNAME: ${POSTGRESQL_USER}
+      KC_DB_PASSWORD: ${POSTGRESQL_PASS}
+    ports:
+      - 8080:8080
+    command:
+      - start-dev
+
+# services:
+#   postgres:
+#     image: postgres:13.2
+#     restart: unless-stopped
+#     environment:
+#       POSTGRES_DB: ${POSTGRESQL_DB}
+#       POSTGRES_USER: ${POSTGRESQL_USER}
+#       POSTGRES_PASSWORD: ${POSTGRESQL_PASS}
+#     volumes:
+#       - /private/var/lib/postgresql:/var/lib/postgresql
+#     networks:
+#       - local-keycloak
+
+#   keycloak:
+#     depends_on:
+#       - postgres
+#     image: quay.io/keycloak/keycloak:latest
+#     container_name: local_keycloak
+#     environment:
+#       DB_VENDOR: postgres
+#       DB_ADDR: postgres
+#       DB_DATABASE: ${POSTGRESQL_DB}
+#       DB_USER: ${POSTGRESQL_USER}
+#       DB_PASSWORD: ${POSTGRESQL_PASS}
+#       KEYCLOAK_ADMIN: admin
+#       KEYCLOAK_ADMIN_PASSWORD: change_me
+#       KEYCLOAK_FRONTEND_URL: http://localhost:8080/auth
+#     command: start-dev
+#     ports:
+#       - "8080:8080"
+#     restart: unless-stopped
+#     networks:
+#       - local-keycloak
+
+# networks:
+#   local-keycloak:
