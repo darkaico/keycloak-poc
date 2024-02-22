@@ -1,4 +1,3 @@
-import React from 'react';
 import './App.css';
 import HomePage from './pages/HomePage';
 import { KeycloakProvider } from './context/KeyclockContext';

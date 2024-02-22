@@ -10,11 +10,18 @@ const HomePage: React.FC = () => {
         keycloak?.login();
     };
 
+    const handleLogout = () => {
+        keycloak?.logout();
+    };
+
     return (
         <div>
             <h1>Welcome to the Home Page!</h1>
             {authenticated ? (
-                <p>Hello, {keycloak?.idTokenParsed.preferred_username}!</p>
+                <div>
+                    <p>Hello, {keycloak?.idTokenParsed.preferred_username}!</p>
+                    <button onClick={handleLogout}>Logout</button>
+                </div>
             ) : (
                 <div>
                     <p>Please log in to access your personalized content.</p>

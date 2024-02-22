@@ -28,7 +28,7 @@ const KeycloakProvider: React.FC<KeycloakProviderProps> = ({ children }) => {
                 url: import.meta.env.VITE_KEYCLOAK_URL as string,
                 realm: import.meta.env.VITE_KEYCLOAK_REALM as string,
                 clientId: import.meta.env.VITE_KEYCLOAK_CLIENT as string,
-                // redirectUri: 'http://localhost:8080/auth'
+                // redirectUri: 'http://localhost:5173'
             }
 
             console.log('keycloackConfig', keycloackConfig);
@@ -37,10 +37,8 @@ const KeycloakProvider: React.FC<KeycloakProviderProps> = ({ children }) => {
 
             keycloakInstance.init({
                 onLoad: 'login-required',
-            }).then((success: Boolean) => {
-                if (success) {
-                    setAuthenticated(keycloakInstance.authenticated);
-                }
+            }).then((authenticated: boolean) => {
+                setAuthenticated(authenticated);
             }).catch((error) => {
                 console.error('Keycloak initialization failed:', error);
                 setAuthenticated(false);
