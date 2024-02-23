@@ -1,54 +1,38 @@
-import React from 'react';
-import { useKeycloak } from '../context/KeycloakContext';
-
-const Navbar: React.FC = ({ onLogin, onLogout }) => {
-    const { authenticated } = useKeycloak();
-
-    return (
-        <nav>
-            <ul>
-                <li>Home</li>
-                {authenticated ? (
-                    <li onClick={onLogout}>Logout</li>
-                ) : (
-                    <li onClick={onLogin}>Login</li>
-                )}
-            </ul>
-        </nav>
-    );
-};
+import React from 'react'
+import { useKeycloak } from '../context/KeycloakContext'
+import NavBar from '../components/NavBar'
 
 const HomePage: React.FC = () => {
-    const { keycloak, authenticated } = useKeycloak();
-    console.log('keycloak', keycloak)
-    console.log('authenticated', authenticated)
+  const { keycloak, authenticated } = useKeycloak()
+  console.log('keycloak', keycloak)
+  console.log('authenticated', authenticated)
 
-    const handleLogin = () => {
-        keycloak?.login();
-    };
+  const handleLogin = () => {
+    keycloak?.login()
+  }
 
-    const handleLogout = () => {
-        keycloak?.logout();
-    };
+  const handleLogout = () => {
+    keycloak?.logout()
+  }
 
-    return (
+  return (
+    <div>
+      <NavBar onLogin={handleLogin} onLogout={handleLogout} />
+      <h1>Welcome to the Home Page!</h1>
+      {authenticated ? (
         <div>
-            <Navbar onLogin={handleLogin} onLogout={handleLogout} />
-            <h1>Welcome to the Home Page!</h1>
-            {authenticated ? (
-                <div>
-                    <p>Hello, {keycloak?.idTokenParsed.preferred_username}!</p>
-                    <p>Email: {keycloak?.idTokenParsed.email}</p>
-                    <button onClick={handleLogout}>Logout</button>
-                </div>
-            ) : (
-                <div>
-                    <p>Please log in to access your personalized content.</p>
-                    <button onClick={handleLogin}>Login</button>
-                </div>
-            )}
+          <p>Hello, {keycloak?.idTokenParsed.preferred_username}!</p>
+          <p>Email: {keycloak?.idTokenParsed.email}</p>
+          <button onClick={handleLogout}>Logout</button>
         </div>
-    );
-};
+      ) : (
+        <div>
+          <p>Please log in to access your personalized content.</p>
+          <button onClick={handleLogin}>Login</button>
+        </div>
+      )}
+    </div>
+  )
+}
 
-export default HomePage;
+export default HomePage

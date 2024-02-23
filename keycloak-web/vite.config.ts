@@ -8,7 +8,7 @@ export default defineConfig({
       // "/documents": "http://127.0.0.1:5000/",
     },
     headers: {
-      'Access-Control-Allow-Origin': '*'
+      'Access-Control-Allow-Origin': '*',
     },
   },
   plugins: [react()],
