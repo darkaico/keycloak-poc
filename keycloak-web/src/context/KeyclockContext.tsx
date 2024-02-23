@@ -18,7 +18,6 @@ const KeycloakProvider: React.FC<KeycloakProviderProps> = ({ children }) => {
     const [authenticated, setAuthenticated] = useState<boolean>(false);
 
     useEffect(() => {
-        let isMounted = true;
         if (isRun.current) return;
 
         isRun.current = true;
@@ -42,11 +41,9 @@ const KeycloakProvider: React.FC<KeycloakProviderProps> = ({ children }) => {
             }).catch((error) => {
                 console.error('Keycloak initialization failed:', error);
                 setAuthenticated(false);
-            });
-
-            if (isMounted) {
+            }).finally(() => {
                 setKeycloak(keycloakInstance);
-            }
+            })
         };
 
         initKeycloak();
