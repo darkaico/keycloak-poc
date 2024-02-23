@@ -2,23 +2,38 @@ import React, { useEffect, useState } from 'react'
 import { useKeycloak } from '../context/KeycloakContext'
 
 const MyProfile: React.FC = () => {
-  const { keycloak } = useKeycloak()
+  const { authenticated, keycloak } = useKeycloak()
+  if (!authenticated) {
+    //TODO: only render here if we are authenticated
+  }
+
   const [items, setItems] = useState<any[]>([]) // Update the type accordingly
 
   useEffect(() => {
     // Fetch items associated with the user from your API
     const fetchItems = async () => {
       try {
+        const userId = keycloak?.idTokenParsed.sub;
+
         // Use keycloak.token for authentication if needed
-        const response = await fetch('your_api_endpoint')
+        const response = await fetch(`/api/users/${userId}/items`)
+
+        if (response.status != 200) {
+          console.error('Item not found', response.json())
+          return
+        }
+
         const data = await response.json()
-        setItems(data)
+        setItems(data.items)
       } catch (error) {
         console.error('Error fetching items:', error)
       }
     }
 
-    fetchItems()
+    // TODO: improve this call
+    if(authenticated) {
+      fetchItems()
+    }
   }, [keycloak])
 
   return (

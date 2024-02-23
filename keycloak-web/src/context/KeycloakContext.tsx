@@ -37,9 +37,6 @@ const KeycloakProvider: React.FC<KeycloakProviderProps> = ({ children }) => {
         clientId: import.meta.env.VITE_KEYCLOAK_CLIENT as string,
         // redirectUri: 'http://localhost:5173'
       }
-
-      console.log('keycloackConfig', keycloackConfig)
-
       const keycloakInstance: Keycloak = new Keycloak(keycloackConfig)
 
       keycloakInstance
@@ -55,6 +52,7 @@ const KeycloakProvider: React.FC<KeycloakProviderProps> = ({ children }) => {
         })
         .finally(() => {
           setKeycloak(keycloakInstance)
+          console.log('keycloak', keycloakInstance)
         })
     }
 

@@ -8,7 +8,7 @@ interface NavBarProps {
 }
 
 const NavBar: React.FC<NavBarProps> = ({ onLogin, onLogout }) => {
-  const { keycloak, authenticated } = useKeycloak()
+  const { authenticated } = useKeycloak()
 
   return (
     <nav>
@@ -21,7 +21,7 @@ const NavBar: React.FC<NavBarProps> = ({ onLogin, onLogout }) => {
           <>
             <li>
               <Link to="/my-profile">
-                My Profile ({keycloak?.idTokenParsed.preferred_username})
+                My Profile
               </Link>
             </li>
             <li onClick={onLogout}>Logout</li>
