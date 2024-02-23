@@ -1,6 +1,23 @@
 import React from 'react';
 import { useKeycloak } from '../context/KeycloakContext';
 
+const Navbar: React.FC = ({ onLogin, onLogout }) => {
+    const { authenticated } = useKeycloak();
+
+    return (
+        <nav>
+            <ul>
+                <li>Home</li>
+                {authenticated ? (
+                    <li onClick={onLogout}>Logout</li>
+                ) : (
+                    <li onClick={onLogin}>Login</li>
+                )}
+            </ul>
+        </nav>
+    );
+};
+
 const HomePage: React.FC = () => {
     const { keycloak, authenticated } = useKeycloak();
     console.log('keycloak', keycloak)
@@ -16,6 +33,7 @@ const HomePage: React.FC = () => {
 
     return (
         <div>
+            <Navbar onLogin={handleLogin} onLogout={handleLogout} />
             <h1>Welcome to the Home Page!</h1>
             {authenticated ? (
                 <div>
