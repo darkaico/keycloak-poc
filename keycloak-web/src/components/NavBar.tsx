@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { useKeycloak } from '../context/KeycloakContext'
 
 interface NavBarProps {
   onLogin: () => void
@@ -7,6 +8,8 @@ interface NavBarProps {
 }
 
 const NavBar: React.FC<NavBarProps> = ({ onLogin, onLogout }) => {
+  const { keycloak, authenticated } = useKeycloak()
+
   return (
     <nav>
       <ul>
@@ -17,7 +20,9 @@ const NavBar: React.FC<NavBarProps> = ({ onLogin, onLogout }) => {
         {authenticated ? (
           <>
             <li>
-              <Link to="/my-profile">My Profile</Link>
+              <Link to="/my-profile">
+                My Profile ({keycloak?.idTokenParsed.preferred_username})
+              </Link>
             </li>
             <li onClick={onLogout}>Logout</li>
           </>

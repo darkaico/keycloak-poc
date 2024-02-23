@@ -1,6 +1,5 @@
 import React from 'react'
 import { useKeycloak } from '../context/KeycloakContext'
-import NavBar from '../components/NavBar'
 
 const HomePage: React.FC = () => {
   const { keycloak, authenticated } = useKeycloak()
@@ -17,7 +16,7 @@ const HomePage: React.FC = () => {
 
   return (
     <div>
-      <NavBar onLogin={handleLogin} onLogout={handleLogout} />
+      {/* <NavBar onLogin={handleLogin} onLogout={handleLogout} /> */}
       <h1>Welcome to the Home Page!</h1>
       {authenticated ? (
         <div>
