@@ -35,7 +35,7 @@ const KeycloakProvider: React.FC<KeycloakProviderProps> = ({ children }) => {
             const keycloakInstance: Keycloak = new Keycloak(keycloackConfig);
 
             keycloakInstance.init({
-                onLoad: 'login-required',
+                onLoad: 'check-sso',
             }).then((authenticated: boolean) => {
                 setAuthenticated(authenticated);
             }).catch((error) => {

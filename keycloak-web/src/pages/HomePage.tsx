@@ -1,5 +1,5 @@
 import React from 'react';
-import { useKeycloak } from '../context/KeyclockContext';
+import { useKeycloak } from '../context/KeycloakContext';
 
 const HomePage: React.FC = () => {
     const { keycloak, authenticated } = useKeycloak();
@@ -20,6 +20,7 @@ const HomePage: React.FC = () => {
             {authenticated ? (
                 <div>
                     <p>Hello, {keycloak?.idTokenParsed.preferred_username}!</p>
+                    <p>Email: {keycloak?.idTokenParsed.email}</p>
                     <button onClick={handleLogout}>Logout</button>
                 </div>
             ) : (

@@ -1,7 +1,7 @@
 
 import './App.css';
 import HomePage from './pages/HomePage';
-import { KeycloakProvider } from './context/KeyclockContext';
+import { KeycloakProvider } from './context/KeycloakContext';
 
 function App() {
   return (
