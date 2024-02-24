@@ -18,4 +18,4 @@ RUN poetry install
 EXPOSE 5000
 
 # Run the Flask app
-CMD ["poetry", "run", "python", "app.py", "-p", "5000"]
+CMD ["poetry", "run", "python", "app.py", "-p", "4000"]

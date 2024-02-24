@@ -1,36 +1,42 @@
 version: '3.9'
 
 services:
-  keycloak-api:
+  keycloak-api-server:
     build:
       context: ./keycloak-api
     ports:
-      - "5000:5000"
-    volumes:
-      - ./keycloak-api:/app/api
+      - 4000:4000
     environment:      
       - FLASK_ENV=development
-    command: sh -c "poetry install && poetry run python app.py"
 
-  keycloak-web:
+  keycloak-web-app:
     build:
       context: ./keycloak-web
     ports:
-      - "3000:3000"
+      - 3000:3000
 
-  keycloak-auth:
-    build:
-      context: ./keycloak-auth
+  postgres-auth:
+    image: postgres:15
     environment:
       POSTGRES_DB: ${POSTGRESQL_DB}
       POSTGRES_USER: ${POSTGRESQL_USER}
       POSTGRES_PASSWORD: ${POSTGRESQL_PASS}
     volumes:
-      - ./keycloak-auth/postgres_data:/var/lib/postgresql/data
+      - postgres_auth_data:/var/lib/postgresql/data
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:${KEYCLOAK_VERSION}
+    environment:
+      KEYCLOAK_ADMIN: ${KEYCLOAK_ADMIN_USER}
+      KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASS}
+      KC_DB: postgres
+      KC_DB_URL: jdbc:postgresql://postgres-auth/${POSTGRESQL_DB}
+      KC_DB_USERNAME: ${POSTGRESQL_USER}
+      KC_DB_PASSWORD: ${POSTGRESQL_PASS}
     ports:
       - 8080:8080
     command:
       - start-dev
 
 volumes:
-  keycloak-auth_postgres_data:
+  postgres_auth_data:

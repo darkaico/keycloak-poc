@@ -5,9 +5,6 @@ services:
     build:
       context: .
     ports:
-      - "5000:5000"
-    volumes:
-      - ./api:/app/api
+      - "4000:4000"
     environment:      
       - FLASK_ENV=development
-    command: sh -c "poetry install && poetry run python app.py"

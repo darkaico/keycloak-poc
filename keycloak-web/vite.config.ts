@@ -3,6 +3,7 @@ import react from '@vitejs/plugin-react'
 
 export default defineConfig({
   server: {
+    host: '0.0.0.0',
     cors: true, // Allow CORS for the development server
     proxy: {
       '/api': {
@@ -16,9 +17,4 @@ export default defineConfig({
     },
   },
   plugins: [react()],
-  build: {
-    rollupOptions: {
-      input: 'src/main.tsx',
-    },
-  },
 })
