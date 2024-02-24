@@ -1,4 +1,27 @@
-# Keycloak Example
+# Keycloak Auth Service with Web Client and Api Client integration
+
+This is a example project to show a simple use case of Keycloack as auth service and how to interact with a web app and an api.
+
+```mermaid
+flowchart TB
+    subgraph  Auth Service
+        db[(postgresql)]:::db
+        keycloak-server:::is -- uses --> db[(postgresql)]:::db
+    end
+
+    subgraph  Api Service
+        db-api[(postgresql)]:::db-api
+        api-server:::is -- uses --> db-api[(postgresql)]:::db-api
+    end
+
+    web-app:::is -- authenticates against --> keycloak-server:::is
+    web-app:::is -- request data from --> api-server:::is
+    api-server:::is -- validate auth against --> keycloak-server:::is
+
+    classDef is fill:#4994eb, color:#ffffff;
+    classDef keycloak-server fill:#36c97d, color:#191919;
+    classDef db fill:#fad505, color:#191919;
+```
 
 ## Keycloak Start and Setup
 
