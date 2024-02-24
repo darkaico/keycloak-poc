@@ -8,7 +8,6 @@ services:
       - "5000:5000"
     volumes:
       - ./api:/app/api
-    environment:
-      - POETRY_VERSION=1.7
+    environment:      
       - FLASK_ENV=development
     command: sh -c "poetry install && poetry run python app.py"

@@ -1,6 +1,12 @@
-# Keycloak Auth Service with Web Client and Api Client integration
+# Example of an Auth Service using Keycloak
 
 This is a example project to show a simple use case of Keycloack as auth service and how to interact with a web app and an api.
+
+The web app is a simple React app that will authenticate against the Keycloak server
+
+The API is a simple Flask app that will validate the requests by checking the token sent in headers against the keycloak server.
+
+## Diagram
 
 ```mermaid
 flowchart TB
@@ -11,21 +17,41 @@ flowchart TB
 
     subgraph  Api Service
         db-api[(postgresql)]:::db-api
-        api-server:::is -- uses --> db-api[(postgresql)]:::db-api
+        flask-server:::is -- uses --> db-api[(postgresql)]:::db-api
     end
 
     web-app:::is -- authenticates against --> keycloak-server:::is
-    web-app:::is -- request data from --> api-server:::is
-    api-server:::is -- validate auth against --> keycloak-server:::is
+    web-app:::is -- request data from --> flask-server:::is
+    flask-server:::is -- validate auth against --> keycloak-server:::is
 
     classDef is fill:#4994eb, color:#ffffff;
-    classDef keycloak-server fill:#36c97d, color:#191919;
     classDef db fill:#fad505, color:#191919;
+    classDef db-api fill:#a503fc, color:#191919;
 ```
 
-## Keycloak Start and Setup
+## Installation and Setting Up
+
+There are multiple ways to set this example. The simpler one is by running all services at the same time using Docker Compose:
+
+```bash
+docker-compose up
+```
+
+Second option is by running each service separately (using docker or manually)
+
+### Keycloak Start and Setup
 
 Follow [keycloak auth instructions](keycloak-auth/README.md)
+
+After that, follow instructions set in [here](#realm-settings)
+
+## Web Client Start and Setup
+
+Follow [web client instructions](keycloak-web/README.md) (using the client settings created in the previous step)
+
+If you click on `Login` button, a login form should appear, witht he ability to registered a new user. Follow those instructions and you will return to the home page with logged in data
+
+## Keycloack Setup
 
 ### Realm Settings
 
@@ -48,9 +74,3 @@ Follow [keycloak auth instructions](keycloak-auth/README.md)
    For the sake of this test, we will use a wildcard (\*), but in PROD we should include the proper urls here
 
 ![alt text](resources/valid-urls.png)
-
-## Web Client Start and Setup
-
-Follow [web client instructions](keycloak-web/README.md) (using the client settings created in the previous step)
-
-If you click on `Login` button, a login form should appear, witht he ability to registered a new user. Follow those instructions and you will return to the home page with logged in data

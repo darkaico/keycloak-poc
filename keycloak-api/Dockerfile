@@ -9,7 +9,7 @@ COPY ./api /app
 COPY pyproject.toml poetry.lock /app/
 
 # Install Poetry
-RUN pip install poetry==${POETRY_VERSION}
+RUN pip install poetry==1.7.1
 
 # Install project dependencies using Poetry
 RUN poetry install
@@ -18,4 +18,4 @@ RUN poetry install
 EXPOSE 5000
 
 # Run the Flask app
-CMD ["poetry", "run", "python", "app.py"]
+CMD ["poetry", "run", "python", "app.py", "-p", "5000"]
