@@ -9,10 +9,34 @@ readme = "README.md"
 python = "^3.12"
 Flask = "^3.0.2"
 flask-cors = "^4.0.0"
+python-dotenv = "^1.0.1"
+python-keycloak = "^3.9.0"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.0.1"
+black = "^24.2.0"
+pre-commit = "^3.6.2"
 
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+line-length = 99
+include = '\.pyi?$'
+exclude = '''
+/(
+    \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | _build
+  | buck-out
+  | build
+  | dist
+)/
+'''
+
+[tool.isort]
+profile = "black"
