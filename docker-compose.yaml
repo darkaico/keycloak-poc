@@ -6,7 +6,7 @@ services:
       context: ./keycloak-api
     ports:
       - 4000:4000
-    environment:      
+    environment:
       - FLASK_ENV=development
 
   keycloak-web-app:

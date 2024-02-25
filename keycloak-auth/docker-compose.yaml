@@ -25,4 +25,4 @@ services:
       - start-dev
 
 volumes:
-  postgres_data: 
+  postgres_data:

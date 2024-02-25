@@ -6,5 +6,5 @@ services:
       context: .
     ports:
       - "4000:4000"
-    environment:      
+    environment:
       - FLASK_ENV=development

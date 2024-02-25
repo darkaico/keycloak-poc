@@ -22,6 +22,14 @@ const HomePage: React.FC = () => {
         <div>
           <p>Hello, {keycloak?.idTokenParsed.preferred_username}!</p>
           <p>Email: {keycloak?.idTokenParsed.email}</p>
+          <p>
+            <textarea
+              id="token"
+              rows={20}
+              cols={100}
+              defaultValue={keycloak?.idToken}
+            />
+          </p>
           <button onClick={handleLogout}>Logout</button>
         </div>
       ) : (
