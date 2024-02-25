@@ -1,8 +1,8 @@
 start:
-	poetry run python api/app.py --port
+	poetry run python -m api.app
 
 lint: ## Lint all files.
-	poetry run pre-commit run --files .
+	poetry run pre-commit run --all-files
 
 clean: ## Remove generated files.
 	find . -type f -name '*.py[co]' -delete -o -type d -name __pycache__ -delete
