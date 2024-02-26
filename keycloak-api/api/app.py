@@ -29,6 +29,7 @@ def index():
 
 
 @app.route("/api/users/<string:user_id>/items", methods=["GET"])
+@require_auth(None)
 def get_user_items(user_id):
     items = []
 

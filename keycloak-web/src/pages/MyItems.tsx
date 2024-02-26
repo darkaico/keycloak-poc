@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useKeycloak } from '../context/KeycloakContext'
 import { redirect } from 'react-router-dom'
 
-const MyProfile: React.FC = () => {
+const MyItems: React.FC = () => {
   const { authenticated, keycloak } = useKeycloak()
   if (!authenticated || !keycloak) {
     // Redirect to home or login page if not authenticated
@@ -15,10 +15,18 @@ const MyProfile: React.FC = () => {
     // Fetch items associated with the user from your API
     const fetchItems = async () => {
       try {
-        const userId = keycloak?.idTokenParsed.sub
+        if (!keycloak) {
+          return;
+        }
 
-        // Use keycloak.token for authentication if needed
-        const response = await fetch(`/api/users/${userId}/items`)
+        const userId = keycloak.idTokenParsed?.sub
+
+        // Use keycloak.token for authentication
+        const response = await fetch(`/api/users/${userId}/items`, {
+          headers: {
+            Authorization: `Bearer ${keycloak.token}`
+          }
+        });
 
         if (response.status != 200) {
           console.error('Item not found', response.json())
@@ -40,22 +48,13 @@ const MyProfile: React.FC = () => {
 
   return (
     <div>
-      <h1>My Profile</h1>
+      <h1>My Items</h1>
       <p>Hello, {keycloak?.idTokenParsed.preferred_username}!</p>
-      <h2>Token:</h2>
-      <p>
-        <textarea
-          id="token"
-          rows={20}
-          cols={100}
-          defaultValue={keycloak?.idToken}
-        />
-      </p>
-      <h2>My Items:</h2>
+
+      <h2>Items:</h2>
       <ul>
         {items && items.length > 0 ? (
           <>
-            <h2>My Items:</h2>
             <ul>
               {items.map((item) => (
                 <li key={item.id}>{item.name}</li>
@@ -70,4 +69,4 @@ const MyProfile: React.FC = () => {
   )
 }
 
-export default MyProfile
+export default MyItems

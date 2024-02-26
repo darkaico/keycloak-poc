@@ -55,22 +55,26 @@ If you click on `Login` button, a login form should appear, witht he ability to 
 
 ### Realm Settings
 
-1. Go to realm section and create a new one. For this example lets called it "myrealm"
+Go to realm section and create a new one. For this example lets called it "myrealm"
 
 ![alt text](resources/create-my-realm.png)
 
-2. We will be using the default login provided by Keycloak, so we will be allowing user registration too.
-   Go to Realm Settings and enable the `User Registration` option
+We will be using the default login provided by Keycloak, so we will be allowing user registration too.
+Go to Realm Settings and enable the `User Registration` option
 
 ![alt text](resources/realm-user-registration.png)
 
 ### Client Settings
 
-1. Go to Clients section and create a new client. For this example lets called it "client-web"
+Go to Clients section and create a new client. For this example lets called it "client-web"
 
 ![alt text](resources/create-my-client.png)
 
-2. This will be the client for the webapp and we should provide the proper urls allowed to interact with this client.
-   For the sake of this test, we will use a wildcard (\*), but in PROD we should include the proper urls here
+This will be the client for the webapp and we should provide the proper urls allowed to interact with this client.
+For the sake of this test, we will use a wildcard (\*), but in PROD we should include the proper urls here
 
 ![alt text](resources/valid-urls.png)
+
+In the Capability config we will only set Standard Flow and Direct Access grants
+
+![Alt text](resources/client-web-capability.png)

@@ -20,8 +20,8 @@ const NavBar: React.FC<NavBarProps> = ({ onLogin, onLogout }) => {
         {authenticated ? (
           <>
             <li>
-              <Link to="/my-profile">
-                My Profile
+              <Link to="/my-items">
+                My Items
               </Link>
             </li>
             <li onClick={onLogout}>Logout</li>
