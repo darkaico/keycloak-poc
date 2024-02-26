@@ -12,6 +12,9 @@
     "format-check": "prettier --check ."
   },
   "dependencies": {
+    "@emotion/react": "^11.11.3",
+    "@emotion/styled": "^11.11.0",
+    "@mui/material": "^5.15.11",
     "axios": "^1.6.7",
     "keycloak-js": "^23.0.6",
     "react": "^18.2.0",

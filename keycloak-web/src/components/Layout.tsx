@@ -1,11 +1,19 @@
-import React from 'react'
-import NavBar from '../components/NavBar'
+import React, { ReactNode }  from 'react';
+import Container from '@mui/material/Container';
+import NavBar from './NavBar';
 
-const Layout: React.FC = ({ children }) => (
+interface LayoutProps {
+  children: ReactNode;
+}
+
+
+const Layout: React.FC<LayoutProps> = ({ children }) => (
   <>
     <NavBar />
-    {children}
+    <Container maxWidth="md">
+      {children}
+    </Container>
   </>
-)
+);
 
-export default Layout
+export default Layout;

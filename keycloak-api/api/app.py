@@ -3,6 +3,7 @@ from flask import Flask, jsonify, render_template
 from flask_cors import CORS
 
 from api.auth import require_auth
+from api.dtos import ItemDTO
 
 app = Flask(__name__)
 CORS(app)
@@ -10,15 +11,15 @@ CORS(app)
 # Dummy data for demonstration
 user_items = {
     "56b916bd-b670-4527-a34c-66523687b128": [
-        {"id": "123", "name": "car"},
-        {"id": "4312", "name": "cellphone"},
-        {"id": "151", "name": "coffee"},
+        ItemDTO("123", "car"),
+        ItemDTO("4312", "cellphone"),
+        ItemDTO("151", "coffee"),
     ],
     "53535353-b670-4527-a34c-66523687b128": [
-        {"id": "512", "name": "car"},
-        {"id": "21255", "name": "cellphone"},
-        {"id": "142", "name": "coffee"},
-        {"id": "22112", "name": "tea"},
+        ItemDTO("512", "car"),
+        ItemDTO("21255", "cellphone"),
+        ItemDTO("142", "coffee"),
+        ItemDTO("22112", "tea"),
     ],
 }
 

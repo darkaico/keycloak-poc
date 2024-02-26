@@ -1,72 +1,76 @@
-import React, { useEffect, useState } from 'react'
-import { useKeycloak } from '../context/KeycloakContext'
-import { redirect } from 'react-router-dom'
+import React, { useEffect, useState } from 'react';
+import { useKeycloak } from '../context/KeycloakContext';
+import AuthenticationMessage from '../components/AuthenticationMessage';
+import ItemDTO from '../types/dtos';
 
 const MyItems: React.FC = () => {
-  const { authenticated, keycloak } = useKeycloak()
-  if (!authenticated || !keycloak) {
-    // Redirect to home or login page if not authenticated
-    return redirect('/')
-  }
-
-  const [items, setItems] = useState<any[]>([]) // Update the type accordingly
+  const { authenticated, keycloak } = useKeycloak();
+  const [items, setItems] = useState<ItemDTO[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    // Fetch items associated with the user from your API
     const fetchItems = async () => {
       try {
         if (!keycloak) {
           return;
         }
 
-        const userId = keycloak.idTokenParsed?.sub
+        const userId = keycloak.idTokenParsed?.sub;
 
-        // Use keycloak.token for authentication
+        setLoading(true);
+        setError(null);
+
         const response = await fetch(`/api/users/${userId}/items`, {
           headers: {
             Authorization: `Bearer ${keycloak.token}`
           }
         });
 
-        if (response.status != 200) {
-          console.error('Item not found', response.json())
-          return
+        if (!response.ok) {
+          setError('Error fetching items.');
+          return;
         }
 
-        const data = await response.json()
-        setItems(data.items)
+        const data = await response.json();
+        setItems(data.items);
       } catch (error) {
-        console.error('Error fetching items:', error)
+        console.error('Error fetching items:', error);
+        setError('Unexpected error occurred.');
+      } finally {
+        setLoading(false);
       }
-    }
+    };
 
-    // TODO: improve this call
     if (authenticated) {
-      fetchItems()
+      fetchItems();
     }
-  }, [keycloak])
+  }, [keycloak, authenticated]);
+
+  if (!authenticated || !keycloak) {
+    return <AuthenticationMessage />;
+  }
 
   return (
     <div>
-      <h1>My Items</h1>
+      <h1>Welcome to My Items Page!</h1>
       <p>Hello, {keycloak?.idTokenParsed.preferred_username}!</p>
 
-      <h2>Items:</h2>
-      <ul>
-        {items && items.length > 0 ? (
-          <>
-            <ul>
-              {items.map((item) => (
-                <li key={item.id}>{item.name}</li>
-              ))}
-            </ul>
-          </>
-        ) : (
-          <p>No items available.</p>
-        )}
-      </ul>
-    </div>
-  )
-}
+      {loading && <p>Loading...</p>}
+      {error && <p style={{ color: 'red' }}>{error}</p>}
 
-export default MyItems
+      <h2>Items</h2>
+      {items && items.length > 0 ? (
+        <ul>
+          {items.map((item) => (
+            <li key={item.id}>{item.name}</li>
+          ))}
+        </ul>
+      ) : (
+        <p>No items available.</p>
+      )}
+    </div>
+  );
+};
+
+export default MyItems;
