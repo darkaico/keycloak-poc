@@ -1,6 +1,5 @@
 import React, {
   createContext,
-  useContext,
   useEffect,
   useState,
   useRef,
@@ -35,7 +34,6 @@ const KeycloakProvider: React.FC<KeycloakProviderProps> = ({ children }) => {
         url: import.meta.env.VITE_KEYCLOAK_URL as string,
         realm: import.meta.env.VITE_KEYCLOAK_REALM as string,
         clientId: import.meta.env.VITE_KEYCLOAK_CLIENT as string,
-        // redirectUri: 'http://localhost:5173'
       }
       const keycloakInstance: Keycloak = new Keycloak(keycloackConfig)
 
@@ -66,12 +64,4 @@ const KeycloakProvider: React.FC<KeycloakProviderProps> = ({ children }) => {
   )
 }
 
-const useKeycloak = (): KeycloakContextProps => {
-  const context = useContext(KeycloakContext)
-  if (!context) {
-    throw new Error('useKeycloak must be used within a KeycloakProvider')
-  }
-  return context
-}
-
-export { KeycloakProvider, useKeycloak }
+export { KeycloakProvider, KeycloakContext }

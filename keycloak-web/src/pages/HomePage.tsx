@@ -1,8 +1,8 @@
 import React from 'react'
-import { useKeycloak } from '../context/KeycloakContext'
+import useKeycloak from '../hooks/useKeycloak';
 
 const HomePage: React.FC = () => {
-  const { keycloak, authenticated } = useKeycloak()
+  const { keycloak, authenticated } = useKeycloak();
 
   return (
     <div>

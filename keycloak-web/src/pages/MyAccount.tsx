@@ -1,6 +1,6 @@
 import React from 'react';
-import { useKeycloak } from '../context/KeycloakContext';
 import AuthenticationMessage from '../components/AuthenticationMessage';
+import useKeycloak from '../hooks/useKeycloak';
 
 const MyAccount: React.FC = () => {
   const { keycloak, authenticated } = useKeycloak();

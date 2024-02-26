@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { useKeycloak } from '../context/KeycloakContext';
 import AuthenticationMessage from '../components/AuthenticationMessage';
 import ItemDTO from '../types/dtos';
+import useKeycloak from '../hooks/useKeycloak';
 
 const MyItems: React.FC = () => {
   const { authenticated, keycloak } = useKeycloak();
