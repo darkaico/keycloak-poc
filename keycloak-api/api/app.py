@@ -32,12 +32,13 @@ def index():
 @app.route("/api/users/<string:user_id>/items", methods=["GET"])
 @require_auth(None)
 def get_user_items(user_id):
-    items = []
+    # items = []
 
-    if user_id in user_items:
-        items = user_items[user_id]
+    # TODO: get proper data from the user
+    # if user_id in user_items:
+    #     items = user_items[user_id]
 
-    return jsonify({"items": items})
+    return jsonify({"items": user_items["56b916bd-b670-4527-a34c-66523687b128"]})
 
 
 @app.route("/api/public", methods=["GET"])

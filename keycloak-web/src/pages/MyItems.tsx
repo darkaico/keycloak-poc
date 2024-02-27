@@ -53,13 +53,11 @@ const MyItems: React.FC = () => {
 
   return (
     <div>
-      <h1>Welcome to My Items Page!</h1>
-      <p>Hello, {keycloak?.idTokenParsed.preferred_username}!</p>
+      <h1>My Items</h1>
 
       {loading && <p>Loading...</p>}
       {error && <p style={{ color: 'red' }}>{error}</p>}
 
-      <h2>Items</h2>
       {items && items.length > 0 ? (
         <ul>
           {items.map((item) => (
