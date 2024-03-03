@@ -1,12 +1,26 @@
+import os
+
 from authlib.integrations.flask_oauth2 import current_token
 from flask import Flask, jsonify, render_template
 from flask_cors import CORS
 
 from api.auth import require_auth
 from api.dtos import ItemDTO
+from api.logger_utils import setup_logger
+from api.models import db
+
+setup_logger()
 
 app = Flask(__name__)
 CORS(app)
+
+app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("SQLALCHEMY_DATABASE_URI")
+# initialize the app with the extension
+db.init_app(app)
+
+
+with app.app_context():
+    db.create_all()
 
 # Dummy data for demonstration
 user_items = {

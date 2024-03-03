@@ -17,7 +17,7 @@ flowchart TB
 
     subgraph  Api Service
         db-api[(postgresql)]:::db-api
-        flask-server:::is -- uses --> db-api[(postgresql)]:::db-api
+        flask-server:::is -- uses --> db-api[(sqlite)]:::db-api
     end
 
     web-app:::is -- authenticates against --> keycloak-server:::is
@@ -26,7 +26,7 @@ flowchart TB
 
     classDef is fill:#4994eb, color:#ffffff;
     classDef db fill:#fad505, color:#191919;
-    classDef db-api fill:#a503fc, color:#191919;
+    classDef db-api fill:#008000, color:#191919;
 ```
 
 ## Installation and Setting Up

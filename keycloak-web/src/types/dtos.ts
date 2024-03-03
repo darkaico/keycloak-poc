@@ -4,4 +4,3 @@ interface ItemDTO {
   }
 
 export default ItemDTO;
-
