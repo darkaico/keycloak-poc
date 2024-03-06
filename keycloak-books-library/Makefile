@@ -7,3 +7,6 @@ test:
 setup:
 	bin/rails db:create
 	bin/rails db:migrate
+
+destroy:
+	bin/rails db:drop
