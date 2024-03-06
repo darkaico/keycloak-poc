@@ -1,0 +1,33 @@
+body {
+  background-color: black;
+  color: white;
+  font-family: "Arial", sans-serif;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.landing-container {
+  text-align: center;
+}
+
+.landing-container h1 {
+  font-size: 2.5em;
+  margin-bottom: 20px;
+}
+
+.landing-container p {
+  font-size: 1.2em;
+  margin-bottom: 30px;
+}
+
+.landing-link {
+  text-decoration: none;
+  color: #61dafb;
+  font-size: 1.2em;
+  border: 1px solid #61dafb;
+  padding: 10px 20px;
+  border-radius: 5px;
+}
