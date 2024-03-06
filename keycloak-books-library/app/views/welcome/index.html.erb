@@ -1,7 +1,17 @@
 <div class="landing-container">
-  <h1>Welcome to the Book Library!</h1>
-  <p>Explore our collection of books and enjoy reading.</p>
+
+  <% if user_signed_in? %>
+    <h1>Welcome Home, <%= current_user.email %></h1>
+    <p>Explore our collection of books and enjoy reading.</p>
 
     <%= link_to "Go to Books", books_path, class: "pure-button pure-button-primary"  %>
+
+    <%= link_to 'Sign out', destroy_user_session_path, data: { turbo_method: :delete } %>
+
+  <% else %>
+    <h1>Welcome to the Book Library!</h1>
+    <p>Explore our collection of books and enjoy reading.</p>
+    <%= link_to 'Sign in', new_user_session_path %>
+  <% end %>  
 
 </div>
