@@ -1,5 +1,7 @@
 # Example of an Auth Service using Keycloak
 
+> 📖 **Read the full walkthrough on Medium:** [Building a Secure Authentication System with Keycloak, React, and Flask](https://medium.com/@darkaico/building-a-secure-authentication-system-with-keycloak-react-and-flask-35aeee04e37a)
+
 This is a example project to show a simple use case of Keycloack as auth service and how to interact with a web app and an api.
 
 The web app is a simple React app that will authenticate against the Keycloak server
